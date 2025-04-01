@@ -20,18 +20,18 @@
        #+END_SRC
     3) Identify the random port that has been exposed
        #+BEGIN_SRC sh
-       PORT=`docker port webserver-${USER: -3} | sed s/.*://g`
-       echo "You can connect using a browser with: http://localhost:$PORT"
+       PORT=`docker port webserver-${USER: -3} | sed s/.*://g | head -n1`
+       echo "You can connect from inside the Docker Host using a browser with: http://localhost:$PORT"
        #+END_SRC
-    4) Connect with the container web-server using curl on the host
+    4) Connect with the container web-server using curl on the Docker host (Lab VM)
        #+BEGIN_SRC sh
        curl http://localhost:$PORT
        #+END_SRC
     5) Connect with the container web-server using a web browser (with tunnel or not)
-       1) Use the following URL: =http://SERVER:$PORT=. /See above/
-       2) Setup the socks proxy on your browser and use the following URL: =http://localhost:$PORT=. /See above/
+       1) Without tunnel: Use the following URL: =http://SERVER:$PORT=.
+       2) With tunnel: Setup the socks proxy on your browser and use the following URL: =http://localhost:$PORT=.
     6) How Docker knows the internal container port (in this case the port 80) which is now bound on the random one?
-       In =Dockerfile= we specify ports to expose using the keyword: =EXPOSE=, see [[https://docs.docker.com/engine/reference/builder/#expose][this reference dgoc]].
+       In =Dockerfile= we specify ports to expose using the keyword: =EXPOSE=, see [[https://docs.docker.com/engine/reference/builder/#expose][this reference doc]].
     7) Practice with docker logs during http server requests
        /Need to use two different shells or the browser/
 
